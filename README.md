@@ -1,0 +1,2 @@
+# StampDispenser
+Laserfiche coding exercise
