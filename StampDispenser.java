@@ -1,9 +1,12 @@
+package StampDispenser;
+import java.util.*;
+
 /**
  * Facilitates dispensing stamps for a postage stamp machine.
  */
 public class StampDispenser
 {
-    int[] stamps;
+    List<Integer> stamps = new ArrayList<Integer>();
     Set<Integer> set = new HashSet<Integer>();
 
     /**
@@ -14,7 +17,7 @@ public class StampDispenser
      *     machine should have.  Should be sorted in descending order and 
      *     contain at least a 1.
      */
-    public StampDispenser(int[] stampDenominations)
+    public StampDispenser(int[] stampDenominations) throws InputInvalidException
     {
         // First validate the user input
         // In the input, we should not allow negative integer and 0.
@@ -32,15 +35,11 @@ public class StampDispenser
         if (!set.contains(1)) 
             throw new InputInvalidException("This array does not contain at least a 1.");
 
-        // Assign the values in the hashset back to the array
-        int i = 0;
-        for (int value : stampDenominations) {
-            stamps[i++] = value;
-        }
+        // Assign the values in the hashset back to the list
+        stamps.addAll(set);
 
         // Sort the array
-        Arrays.sort(stampDenominations);
-
+        Collections.sort(stamps, Collections.reverseOrder());
     }
  
     /**
@@ -54,10 +53,10 @@ public class StampDispenser
         return 0;
     }
     
-    public static void main(String[] args)
+    public static void main(String[] args) throws InputInvalidException
     {
-        int[] denominations = { 90, 30, 24, 10, 6, 2, 1 };
+        int[] denominations = { 30, 10, 24, 1, 6, 2, 90};
         StampDispenser stampDispenser = new StampDispenser(denominations);
-        assert stampDispenser.calcMinNumStampsToFillRequest(18) == 3;
+        //assert stampDispenser.calcMinNumStampsToFillRequest(18) == 3;
     }
 }
